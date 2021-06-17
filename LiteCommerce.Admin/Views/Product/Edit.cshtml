@@ -1,0 +1,304 @@
+﻿@model LiteCommerce.DomainModels.ProductEx
+
+@{
+    ViewBag.Title = "Cập nhật thông tin mặt hàng";
+
+}
+<div class="container-fluid" style="margin:13px auto;padding-bottom:4px; border:1px solid #ffff;">
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post" action="~/Product/Save" id="formproduct">
+
+                @Html.HiddenFor(m => m.ProductID)
+
+                <div class="form-group">
+                    <label>Tên hàng:</label>
+                    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @autofocus = "autofocus" })
+
+                </div>
+                <div class="form-group">
+                    <label>Ảnh :</label>
+                    @Html.TextBoxFor(m => m.Photo, new { @class = "form-control" })
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tên loại hàng:</label>
+
+                            @Html.DropDownListFor(m => m.CategoryID, SelectListHelper.Categories(), new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tên nhà cung cấp:</label>
+
+                            @Html.DropDownListFor(m => m.SupplierID, SelectListHelper.Suppliers(), new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Đơn vị tính:</label>
+                            @Html.TextBoxFor(m => m.Unit, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Giá hàng:</label>
+                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-save"></i> Lưu dữ liệu
+                        </button>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="~/Product/Index" class="btn btn-warning">
+                            <i class="fa fa-window-close"></i> Bỏ qua
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@*Hiển thị danh sách thuộc tính để xem, sửa, xóa*@
+<div style="margin:15px auto; border:1px solid #ffff;">
+    <form action="~/Product/DeleteAttributes/@Model.ProductID" method="post">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:50px;"></th>
+                    <th>Tên thuộc tính</th>
+                    <th>Giá trị</th>
+                    <th>
+                        <button type="submit" class="btn btn-xs btn-danger" title="Xóa thuộc tính đã chọn">
+                            <i class="fa fa-remove"></i>
+                        </button>
+                        <button type="button" class="btn btn-xs btn-primary" title="Thêm thuộc tính mới" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-plus"></i>
+                        </button>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Attributes)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="attributeIds" value="@item.AttributeID" />
+                        </td>
+                        <td>@item.AttributeName</td>
+                        <td>@item.AttributeValue</td>
+                        <td>
+                            <div class="text-right"></div>
+                            <a class="btn btn-xs btn-info edit-attribute-btn" title="Chỉnh sửa thuộc tính này" data-id="@item.AttributeID">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </form>
+</div>
+<!-- Modal add Atrribute -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-success" style="font-size:2.5rem;" id="exampleModalLabel">Thêm thuộc tính </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="~/Product/AddAttributes/@Model.ProductID">
+
+                    <div class="form-group">
+                        <label>Tên thuộc tính mới:</label>
+                        <input type="text" name="attributeName" id="Photo" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Giá trị:</label>
+                        <input type="text" name="attributeValue" id="attributeValue" class="form-control" />
+
+                    </div>
+                    <div class="form-group ">
+                        <label>Thứ tự hiển thị:</label>
+                        <input type="number" name="displayOrder" id="displayOrder" class="form-control" />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@*Hiển thị danh sách ảnh của mặt hàng để xem, sửa xóa*@
+<div style="margin:13px auto; border:1px solid #ffff;">
+    <form action="~/Product/DeleteGalleries/@Model.ProductID" method="post">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:50px;"></th>
+                    <th>Ảnh</th>
+                    <th>Mô tả</th>
+                    <th>Trạng thái hiển thị</th>
+                    <th>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-xs btn-danger" title="Xóa thuộc tính đã chọn">
+                                <i class="fa fa-remove"></i>
+                            </button>
+                            <button type="button" class="btn btn-xs btn-primary" title="Thêm thuộc tính mới" data-toggle="modal" data-target="#imgModal">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <!-- Modal -->
+
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Galleries)
+                {
+
+                <tr>
+                    <td>
+                        <input type="checkbox" name="gallerieIds" value="@item.GalleryID" />
+                    </td>
+                    <td><img src="@item.Photo" style="width:100px" /></td>
+                    <td>@item.Description</td>
+                    @if (@item.IsHidden)
+                    {
+
+                      <td>Hiện</td>
+                    }
+                    else
+                    {
+                        <td>Ẩn</td>
+                    }
+
+                    <td>
+                        <div class="text-right">
+                            <a class="btn btn-xs btn-info edit-gallery-btn" title="Chỉnh sửa thuộc tính này" data-id="@item.GalleryID">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
+@*Modal add Gallery*@
+<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-success" style="font-size:2.5rem;" id="exampleModalLabel">Thêm mới </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="~/Product/AddGalleries/@Model.ProductID">
+
+                    <div class="form-group">
+                        <label>Ảnh:</label>
+                        <input type="text" name="Photo" id="Photo" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Mô tả:</label>
+                        <input type="text" name="description" id="description" class="form-control" />
+
+                    </div>
+                    <div class="form-group ">
+                        <label>Thứ tự hiển thị:</label>
+                        <input type="number" name="displayOrder" id="displayOrder" class="form-control" />
+                    </div>
+                    <div class="form-group ">
+                        <label>Trạng thái hiển thị</label>
+                        <select name="isHidden" id="isHidden" class="form-control">
+                            <option value="0">
+                                Ẩn
+                            </option>
+                            <option value="1">
+                                Hiện
+                            </option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="addAttributeModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalAttributeInfoBody">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addGalleryModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="modalGalleryInfoBody">
+
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            $(".edit-attribute-btn").on("click", function () {
+                $.ajax({
+                    url: "/Product/EditAttribute/" + $(this).data("id"),
+                    type: "POST",
+                    success: function (responeData) {
+                        $("#modalAttributeInfoBody").html(responeData);
+                        $("#addAttributeModal").modal("show");
+
+                    }
+                });
+            });
+
+            $(".edit-gallery-btn").on("click", function () {
+                $.ajax({
+                    url: "/Product/EditGallery/" + $(this).data("id"),
+                    type: "POST",
+                    success: function (responeData) {
+                        $("#modalGalleryInfoBody").html(responeData);
+                        $("#addGalleryModal").modal("show");
+
+                    }
+                });
+            });
+        });
+        
+    </script>
+    <script src="~/Scripts/product/productimg.js"></script>
+}

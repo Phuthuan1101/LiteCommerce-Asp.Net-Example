@@ -1,0 +1,70 @@
+﻿@model LiteCommerce.Admin.Models.ShipperPaginationQueryResult
+@{
+    Layout = null;
+}
+<p class="text-left">
+    có tất cả <strong>@Model.RowCount</strong> nhà vận chuyển. Bạn đang ở trang số <strong>@Model.Page</strong>
+    trong tổng số <strong>@Model.PageCount </strong>  trang
+</p>
+
+<table class="table table-striped col-md-12">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th scope="col">Tên Nhà vận chuyển</th>
+            <th scope="col">Số điện thoại</th>
+
+
+            <th class="text-right">
+                <a href="~/Shipper/Add" class="btn btn-xs btn-primary">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int k = 0;}
+        @foreach (var item in Model.Data)
+        {
+            k++;
+            <tr>
+                <td scope="row">@k</td>
+                <td>@item.ShipperName</td>
+                <td>@item.Phone</td>
+
+                <td class="text-right">
+                    <a href="~/Shipper/Edit/@item.ShipperID" class="btn btn-xs btn-info">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="~/Shipper/Delete/@item.ShipperID" class="btn btn-xs btn-danger">
+                        <i class="fa fa-remove"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+
+
+    </tbody>
+
+</table>
+
+<div class="text-center">
+    <ul class="pagination">
+        <li><a href="#">&lt;&lt;</a></li>
+        @for (int i = 1; i <= Model.PageCount; ++i)
+        {
+            if (i == Model.Page)
+            {
+                <li class="active"><a href="#">@i</a></li>
+            }
+            else
+            {
+                <li><a href="javascript:;" onclick="getProducts(@i)">@i</a></li>
+
+            }
+
+        }
+        <li><a href="#">&gt;&gt;</a></li>
+    </ul>
+</div>

@@ -1,0 +1,12 @@
+﻿#previewonly > img {
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    border: 1px solid;
+   
+}
+.error {
+    color: red;
+    font-weight: 400 !important;
+    font-size: 1.5rem;
+}

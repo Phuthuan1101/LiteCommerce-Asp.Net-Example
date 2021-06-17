@@ -1,0 +1,53 @@
+﻿@model LiteCommerce.DomainModels.Product
+@{
+    ViewBag.Title = "Xóa thông tin hàng hóa";
+}
+
+<form class="form-horizontal" method="post" action="~/Product/Delete/@Model.ProductID">
+    <div class="form-group">
+        @Html.HiddenFor(m=>m.ProductID)
+        <label class="control-label col-sm-2">Ảnh:</label>
+        <div class="col-sm-10">
+            @*<img src="https://bootdey.com/img/Content/avatar/avatar6.png" class=" profile-avatar" style="width: 140px" alt="User avatar">*@
+            <img src="@Model.Photo" class=" profile-avatar" style="width: 140px" alt="User avatar">
+        </div>
+
+        <label class="control-label col-sm-2">Tên mặt hàng:</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.ProductName</p>
+        </div>
+
+        <label class="control-label col-sm-2">Nhà cung cấp:</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.SupplierID</p>
+        </div>
+
+        <label class="control-label col-sm-2">Loại măt hàng:</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.CategoryID</p>
+        </div>
+
+        <label class="control-label col-sm-2">Giá:</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.Price</p>
+        </div>
+        <label class="control-label col-sm-2">Đơn vị tính:</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.Unit</p>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-offset-2 col-sm-10">
+            <p class="text-danger" style="font-size:18px">
+                Bạn có chắc chắn muốn xóa mặt hàng này khỏi hệ thống hay không?
+            </p>
+        </div>
+        <div class="col-lg-offset-2 col-sm-10">
+            <button class="btn btn-danger">Đồng ý xóa</button>
+            <a href="~/Product/Index" class="btn btn-warning">Bỏ qua</a>
+        </div>
+    </div>
+</form>
+

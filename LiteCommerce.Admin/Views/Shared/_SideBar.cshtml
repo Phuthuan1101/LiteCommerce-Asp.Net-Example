@@ -1,0 +1,87 @@
+﻿<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            @{
+                var account = CookieHelper.CookieStringToAccount(User.Identity.Name);
+
+            }
+            <div class="pull-left image">
+                <img src="@account.Photo" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>@account.FullName</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+            <li>
+                <a href="/">
+                    <i class="fa fa-home"></i> <span>Trang chủ</span>
+
+                </a>
+            </li>
+
+
+            <li class="treeview active">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Quản lý dữ liệu</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="~/Category"><i class="fa fa-circle-o"></i> Loại hàng</a></li>
+                    <li><a href="~/Supplier"><i class="fa fa-circle-o"></i> Nhà cung cấp</a></li>
+                    <li><a href="~/Shipper"><i class="fa fa-circle-o"></i> Nhà vận chuyển</a></li>
+                    <li><a href="~/Customer"><i class="fa fa-circle-o"></i> Khách hàng</a></li>
+                    <li><a href="~/Employee"><i class="fa fa-circle-o"></i> Nhân viên</a></li>
+                </ul>
+            </li>
+            <li><a href="~/Product"><i class="fa fa-book"></i> <span>Quản lý hàng hóa</span></a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Bán hàng</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Tạo đơn hàng</a></li>
+                    <li><a href="SupplierController"><i class="fa fa-circle-o"></i> Xử lý đơn hàng</a></li>
+                    <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Tra cứu đơn hàng</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Thống kê - Báo cáo</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Doanh thu bán hàng</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

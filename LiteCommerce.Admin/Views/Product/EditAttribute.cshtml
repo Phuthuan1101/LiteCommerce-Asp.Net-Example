@@ -1,0 +1,31 @@
+﻿@model LiteCommerce.DomainModels.ProductAttribute
+
+
+<form method="post" action="~/Product/SaveAttribute" id="attributeForm">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">@ViewBag.Title</h4>
+    </div>
+    <div class="modal-body">
+        @Html.HiddenFor(m => m.AttributeID)
+        @Html.HiddenFor(m => m.ProductID)
+        <div class="form-group">
+            <label>Tên thuộc tính:</label>
+            @Html.TextBoxFor(m => m.AttributeName, new { @class = "form-control", @autofocus = "autofocus", @autocomplete = "off" })
+        </div>
+        <div class="form-group">
+            <label>Giá trị:</label>
+            @Html.TextAreaFor(m => m.AttributeValue, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Thứ tự hiển thị:</label>
+            @Html.TextBoxFor(m => m.DisplayOrder, new { @class = "form-control", @autocomplete = "off" })
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">Lưu dữ liệu</button>
+    </div>
+</form>
